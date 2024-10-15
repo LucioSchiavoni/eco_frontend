@@ -1,19 +1,12 @@
-import axios from 'axios'
-import { useAuthStore } from '../context/store';
+import clienteAxios from "@/config/axios";
 
 
-const clienteAxios = axios.create({
-    baseURL: import.meta.env.VITE_URL,
-    withCredentials: true
-})
+export const getProduct = async () => {
+    try {
+        const res = await clienteAxios.get("/product")
+        return res.data
+    } catch (error) {
+        console.log(error)
+    }
+}
 
-clienteAxios.interceptors.request.use((config) => {
-    const token = useAuthStore.getState().token;
-
-    config.headers.Authorization = `Bearer ${token}`;
-    return config;
-  });
-  
-
-
-export default clienteAxios;

@@ -15,36 +15,36 @@ import { Link } from "react-router-dom"
 
 const components: { title: string; href: string; description: string }[] = [
   {
-    title: "Alert Dialog",
+    title: "Bungesliga",
     href: "/docs/primitives/alert-dialog",
     description:
       "A modal dialog that interrupts the user with important content and expects a response.",
   },
   {
-    title: "Hover Card",
+    title: "Premier league",
     href: "/docs/primitives/hover-card",
     description:
       "For sighted users to preview content available behind a link.",
   },
   {
-    title: "Progress",
+    title: "Serie A",
     href: "/docs/primitives/progress",
     description:
       "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
   },
   {
-    title: "Scroll-area",
+    title: "Liga española",
     href: "/docs/primitives/scroll-area",
     description: "Visually or semantically separates content.",
   },
   {
-    title: "Tabs",
+    title: "Ligue 1",
     href: "/docs/primitives/tabs",
     description:
       "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
   },
   {
-    title: "Tooltip",
+    title: "Uefa Champions League",
     href: "/docs/primitives/tooltip",
     description:
       "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
@@ -56,7 +56,7 @@ export const NavbarDsk = () => {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
+             <NavigationMenuTrigger>Nike</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
               <li className="row-span-3">
@@ -67,30 +67,105 @@ export const NavbarDsk = () => {
                   >
                     <div className="h-6 w-6" />
                     <div className="mb-2 mt-4 text-lg font-medium">
-                      shadcn/ui
+                      Offers
                     </div>
                     <p className="text-sm leading-tight text-muted-foreground">
-                      Beautifully designed components that you can copy and
-                      paste into your apps. Accessible. Customizable. Open
-                      Source.
+                      40% OFF
                     </p>
                   </a>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/docs" className="hover:bg-gray-200" title="Introduction">
-                Re-usable components built using Radix UI and Tailwind CSS.
+              <ListItem href="/docs" className="hover:bg-gray-200" title="Mercurial">
+
               </ListItem>
-              <ListItem href="/docs/installation" className="hover:bg-gray-200" title="Installation">
-                How to install dependencies and structure your app.
+              <ListItem href="/docs/installation" className="hover:bg-gray-200" title="Phantom">
+            
               </ListItem>
-              <ListItem href="/docs/primitives/typography" className="hover:bg-gray-200" title="Typography">
-                Styles for headings, paragraphs, lists...etc
+              <ListItem href="/docs/primitives/typography" className="hover:bg-gray-200" title="Tiempo">
+                
+              </ListItem>
+                    <ListItem href="/docs/primitives/typography" className="hover:bg-gray-200" title="Society Nike">
+                
+              </ListItem>
+                 <ListItem href="/docs/primitives/typography" className="hover:bg-gray-200" title="Futsal Nike">
+                
               </ListItem>
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Components</NavigationMenuTrigger>
+          <NavigationMenuTrigger>Adidas</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid gap-3  p-6 md:w-[400px] lg:w-[500px] grid-cols-2">
+              <li className="row-span-3">
+                <NavigationMenuLink asChild>
+                  <a
+                    className="flex h-full w-full hover:bg-gray-200 select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                    href="/"
+                  >
+                    <div className="h-6 w-6" />
+                    <div className="mb-2 mt-4 text-lg font-medium">
+                      Offers
+                    </div>
+                    <p className="text-sm leading-tight text-muted-foreground">
+                      20%
+                    </p>
+                  </a>
+                </NavigationMenuLink>
+              </li>
+              <ListItem href="/card" className="hover:bg-gray-200" title="Adidas X">
+                
+              </ListItem>
+                <ListItem href="/card" className="hover:bg-gray-200" title="Predator">
+                
+              </ListItem>
+                   <ListItem href="/card" className="hover:bg-gray-200" title="Copa">
+                
+              </ListItem>
+              <ListItem href="/docs/installation" className="hover:bg-gray-200" title="Futsal Adidas">
+          
+              </ListItem>
+              <ListItem href="/docs/primitives/typography" className="hover:bg-gray-200" title="Society Adidas">
+              </ListItem>
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+             <NavigationMenuTrigger>Puma</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid gap-3  p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                       <li className="row-span-3">
+                <NavigationMenuLink asChild>
+                  <a
+                    className="flex h-full w-full hover:bg-gray-200 select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                    href="/"
+                  >
+                    <div className="h-6 w-6" />
+                    <div className="mb-2 mt-4 text-lg font-medium">
+                      Offers
+                    </div>
+                    <p className="text-sm leading-tight text-muted-foreground">
+                      20%
+                    </p>
+                  </a>
+                </NavigationMenuLink>
+              </li>
+              <ListItem href="/card" className="hover:bg-gray-200" title="Campo Puma">
+                
+              </ListItem>
+                <ListItem href="/card" className="hover:bg-gray-200" title="Society Puma">
+                
+              </ListItem>
+                   <ListItem href="/card" className="hover:bg-gray-200" title="Futsal Puma">
+                
+              </ListItem>
+         
+            </ul>
+      
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger>Camisetas</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
               {components.map((component) => (
@@ -109,7 +184,7 @@ export const NavbarDsk = () => {
         <NavigationMenuItem>
           <Link to="/" >
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Documentation
+              Mas recientes
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>

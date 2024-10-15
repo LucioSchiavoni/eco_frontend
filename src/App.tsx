@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Home from "./pages/Home"
+import CardProduct from "./components/item/CardProduct"
 
 function App() {
   
@@ -8,7 +9,7 @@ function App() {
   <BrowserRouter>
   <Routes>
     <Route path="/" element={<Home/>} />
-    <Route path="/" element={<Home/>} />
+        <Route path="/card" element={<CardProduct/>} />
   </Routes>
   </BrowserRouter>
     </>
