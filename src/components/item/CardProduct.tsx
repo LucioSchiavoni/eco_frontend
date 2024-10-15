@@ -1,10 +1,16 @@
-
 import { useQuery } from '@tanstack/react-query'
 import { getProduct } from '@/api/prodcut'
+
 const CardProduct = () => {
 
+  interface CardProductProps {
+    name: string,
+    price: number,
+    img: string,
+  }
+
   const {data, isLoading, isError} = useQuery({
-    queryKey: ['products'],
+    queryKey: ['product'],
     queryFn: () =>  getProduct(),
   })  
 
@@ -19,11 +25,12 @@ const CardProduct = () => {
   if(data)
   return (
     <div className='grid grid-cols-4 gap-8 '>
-      {data.map((item: any, index: number) => (
-      <div key={index}>
+      {data.map((item: CardProductProps, index: number) => (
+      <div key={index} className='text-white'>
         <div>{item.name}</div>
         <div>{item.price}</div>
-        <img src={item.img} className='w-24 h-24' alt="img" />
+        <p>{item.img}</p>
+       <img src={item.img} alt="img" className='w-24 h-24 rounded-md border shadow-xl' />
       </div>
     ))}</div>
   )
