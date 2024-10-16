@@ -1,34 +1,39 @@
+import { Menu } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 
-import { Menu, MenuButton, MenuItem, MenuList, Button } from "@chakra-ui/react"
-import {CloseIcon, HamburgerIcon} from '@chakra-ui/icons'
 
 const NavbarMb = () => {
-
   return (
-    <nav className="px-3 py-3 flex gap-2 border">
-        <img src="" alt="icono" />
-        <div  className="absolute right-2 top-2">
-    
-<Menu>
-    
-  {({ isOpen }) => (
-    <>
-      <MenuButton isActive={isOpen} as={Button} >
-        {isOpen ? <CloseIcon/> : <HamburgerIcon/>}
-      </MenuButton>
-      <MenuList>
-        <MenuItem>Inicio</MenuItem>
-        <MenuItem>Login</MenuItem>
-        <MenuItem>Registro</MenuItem>
-      </MenuList>
-    </>
-  )}
-</Menu>
-  </div>
-  
-<input type="text" className="px-3 rounded-md border py-1 focus:ring-1 focus:ring-blue-500 focus:outline-none" placeholder="Buscar.." />
-
-  </nav>
+    <nav className="flex items-center justify-between p-4 border-b">
+      <div className="flex items-center gap-4">
+        <img src="/placeholder.svg?height=10&width=10" alt="Logo" className="w-10 border rounded-full h-10 shadow-xl" />
+        <input 
+          type="search" 
+          placeholder="Buscar..." 
+          className="w-full max-w-[200px] border px-3 py-1 rounded-md focus:ring-2 focus:ring-zinc-600 focus:outline-none"
+        />
+      </div>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button variant="ghost" size="icon">
+            <Menu className="h-6 w-6" />
+            <span className="sr-only">Abrir menú</span>
+          </Button>
+        </SheetTrigger>
+        <SheetContent>
+          <nav className="flex flex-col gap-4">
+            <a href="#" className="text-lg font-medium">Inicio</a>
+            <a href="#" className="text-lg font-medium">Login</a>
+            <a href="#" className="text-lg font-medium">Registro</a>
+          </nav>
+        </SheetContent>
+      </Sheet>
+    </nav>
   )
 }
 

@@ -26,7 +26,7 @@ const CardProduct = () => {
 
   if(data)
   return (
-    <div className='grid grid-cols-4 gap-6 '>
+    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 '>
       {data.map((item: CardProductProps, index: number) => (
      <CardProductItem key={index} name={item.name} price={item.price} img={item.img} rating={4} id={item.id} />
     ))}</div>

@@ -30,12 +30,12 @@ export default function CardProductItem({
   }
 
   return (
-     <Card className="w-full max-w-sm overflow-hidden transition-shadow hover:shadow-lg">
-      <div className="relative">
+    <Card className="w-full overflow-hidden transition-shadow hover:shadow-lg">
+      <div className="relative ">
         <img 
           src={img} 
           alt={name} 
-          className="h-80 w-full object-cover"
+          className="w-full h-64 sm:h-72 md:h-80 lg:h-96 object-cover"
         />
         {discount > 0 && (
           <Badge className="absolute left-2 top-2 bg-red-500">
@@ -44,11 +44,11 @@ export default function CardProductItem({
         )}
       </div>
       <CardContent className="p-4">
-        <h3 className="mb-2 text-lg font-semibold line-clamp-2">{name}</h3>
+        <h3 className="mb-2 text-sm sm:text-base lg:text-lg font-semibold line-clamp-2">{name}</h3>
         <div className="flex items-center gap-2 mb-2">
-          <div className="text-2xl font-bold">${price}</div>
+          <div className="text-lg sm:text-xl lg:text-2xl font-bold">${price}</div>
           {originalPrice && (
-            <div className="text-sm text-gray-500 line-through">
+            <div className="text-xs sm:text-sm text-gray-500 line-through">
               ${originalPrice.toFixed(2)}
             </div>
           )}
@@ -58,17 +58,17 @@ export default function CardProductItem({
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
-                className={`h-4 w-4 ${
+                className={`h-3 w-3 sm:h-4 sm:w-4 ${
                   i < Math.floor(rating) ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
                 }`}
               />
             ))}
           </div>
-          <span className="text-sm text-gray-600">{rating}</span>
+          <span className="text-xs sm:text-sm text-gray-600">{rating}</span>
         </div>
       </CardContent>
       <CardFooter className="p-4">
-        <Button className="w-full" onClick={handleNavigate}>Añadir al carrito</Button>
+        <Button className="w-full text-xs sm:text-sm" onClick={handleNavigate}>Añadir al carrito</Button>
       </CardFooter>
     </Card>
   )

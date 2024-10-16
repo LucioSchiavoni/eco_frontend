@@ -10,7 +10,7 @@ export const getProduct = async () => {
     }
 }
 
-export const getProductById = async (id: string) => {
+export const getProductById = async (id: string): Promise<any> => {
     try {
         const res = await clienteAxios.get(`/product/${id}`)
         return res.data
