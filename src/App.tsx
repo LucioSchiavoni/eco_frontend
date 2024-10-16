@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Home from "./pages/Home"
-import CardProduct from "./components/item/CardProduct"
+import { CardItem } from "./components/item/CardItem"
 
 function App() {
   
@@ -9,7 +9,7 @@ function App() {
   <BrowserRouter>
   <Routes>
     <Route path="/" element={<Home/>} />
-        <Route path="/card" element={<CardProduct/>} />
+          <Route path="/product/:id" element={<CardItem/>} />
   </Routes>
   </BrowserRouter>
     </>
