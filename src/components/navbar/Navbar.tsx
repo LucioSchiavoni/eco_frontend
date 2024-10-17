@@ -8,11 +8,10 @@ export const Navbar = () => {
     
     <>
     <div className="hidden md:block">
-      <nav className="justify-center items-center flex py-8  ">
          <NavbarDsk/>
-      </nav>
        
     </div>
+
     <div className="md:hidden">
         <NavbarMb/>
     </div>
