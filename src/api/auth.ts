@@ -3,7 +3,7 @@ import clienteAxios from "../config/axios";
 
 
 
-export const loginRequest = async ( userData: {username: string, password: string}) => {
+export const loginRequest = async ( userData: {usernameOrEmail: string, password: string}) => {
     try { 
         const response =  await clienteAxios.post("/login", userData)
         return response
