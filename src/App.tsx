@@ -4,6 +4,9 @@ import ProductItemPage from "./pages/ProductItemPage"
 import LoginPage from "./pages/LoginPage"
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/ReactToastify.css';
+import RegisterPage from "./pages/RegisterPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import RegisterProductPage from "./pages/admin/RegisterProductPage";
 
 const AppContent =() => {
   
@@ -13,8 +16,10 @@ const AppContent =() => {
   <Routes>
     <Route path="/" element={<Home/>} />
           <Route path="/product/:id" element={<ProductItemPage/>} />
-          <Route path="*" element={<h1>Not Found</h1>} />
+          <Route path="*" element={<NotFoundPage/>} />
           <Route path="/login" element={<LoginPage/>}/>
+          <Route path="/registro" element={<RegisterPage/>}/>
+          <Route path="/create/product" element={<RegisterProductPage/>}/>
   </Routes>
 
     </>

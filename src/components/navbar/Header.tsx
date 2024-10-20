@@ -3,12 +3,15 @@ import { Button } from "../ui/button"
 import { Navbar } from "./Navbar"
 import { Link } from "react-router-dom"
 import { useAuthStore } from "@/context/store"
-
+import SheetAdmin from "../button/SheetAdmin"
+import { LogOut } from "lucide-react"
 
 
 const Header = () => {
 
     const profile = useAuthStore((state) => state.profile)
+    const userRol = profile?.rolUser;
+    const logout = useAuthStore((state) => state.logout)
 
   return (
     <div>
@@ -28,23 +31,34 @@ const Header = () => {
                 <ShoppingCart className="h-6 w-6" />
                 <span className="sr-only">Carrito de compras</span>
               </Button>
-                {
-                    profile.username ? (
-                        <div className="flex items-center gap-2">
-                            <img src={profile.avatar} alt="avatar" className="w-8 h-8  rounded-full" />
-                            <span className="font-semibold">{profile.username}</span>
-                        </div>
-                    )
-                    :
-              <div className="flex  gap-2">
-                <Link to='/login' >
-                      <Button variant="outline">Iniciar sesion</Button>
+                   {profile ? (
+              userRol === 'ADMIN' ? (
+                <div className="flex justify-between gap-4 items-center">
+                  <SheetAdmin/>
+                      <button onClick={logout}>
+                          <LogOut
+                      size={24}
+                      color={"#000"}
+                      className='h-6 w-6 '
+                      aria-hidden="true"
+                      />
+                      </button>
+             </div>
+              ) : userRol === 'USER' ? (
+                <div className="flex items-center gap-2">
+                  <img src={profile?.img || '/default-profile.png'} alt="img-profile" className="w-8 h-8 rounded-full" />
+                  <p>Bienvenido {profile?.name || 'Usuario'}</p>
+                  <button>Logout</button>
+                </div>
+              ) : null
+            ) : (
+              <div className="flex gap-2">
+                <Link to='/login'>
+                  <Button variant="outline">Iniciar sesión</Button>
                 </Link>
-
-                <Button>Registrate</Button>
+                <Button>Registrarse</Button>
               </div>
- 
-                }
+            )}
             </div>
           </div>
         </header>

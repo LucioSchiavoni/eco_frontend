@@ -45,7 +45,6 @@ const mutation = useMutation({
 });
     const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
-      console.log(usernameOrEmail, password)
       try {
           mutation.mutate({usernameOrEmail, password})
       } catch (error) {
