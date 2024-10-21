@@ -8,6 +8,7 @@ import RegisterPage from "./pages/RegisterPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import RegisterProductPage from "./pages/admin/RegisterProductPage";
 
+
 const AppContent =() => {
   
   return (
