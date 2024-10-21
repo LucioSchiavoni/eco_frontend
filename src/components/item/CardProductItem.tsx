@@ -11,8 +11,8 @@ interface ProductCardProps {
   price: number
   originalPrice?: number
   rating: number
-  subCategories: string
-  categories: string
+  subCategories?: string
+  categories?: string
 }
 
 export default function CardProductItem({ 

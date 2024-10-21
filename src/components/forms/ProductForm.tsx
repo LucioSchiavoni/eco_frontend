@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { useQueryClient } from '@tanstack/react-query'
+import { useState } from 'react'
+import { useQuery } from "@tanstack/react-query"
 import { toast } from 'react-toastify'
-import { createProduct, getCategory, getSubCategory } from '../../api/prodcut'
+import { createProduct, getCategory, getSubCategory } from '@/api/prodcut'
 
-
-// Define the type for the product state
 interface Product {
   name: string
   price: string
   stock: string
-  img?: string
+  img: string
 }
 
 interface Category {
@@ -29,20 +27,23 @@ const ProductForm: React.FC = () => {
     stock: '',
     img: '',
   })
-  const [categories, setCategories] = useState<Category[]>([])
-  const [subCategories, setSubCategories] = useState<SubCategory[]>([])
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null)
-  const [selectedSubcategory, setSelectedSubcategory] = useState<number | null>(null)
- const [image, setImage] = useState<File | null>(null)
+  const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null)
+  const [image, setImage] = useState<File | null>(null)
   const [errors, setErrors] = useState<Record<string, string>>({})
 
-  const queryClient = useQueryClient()
+  const { data: categories } = useQuery({
+    queryKey: ['categories'],
+    queryFn: getCategory
+  })
+  const { data: subCategories } = useQuery({
+    queryKey: ['subCategories', selectedCategory],
+    queryFn: () => getSubCategory(selectedCategory!),
+    enabled: !!selectedCategory,
+  })
 
-
-
-  const handleCreateProduct = async (data: FormData) => {
+  async function handleCreateProduct(data: FormData) {
     try {
-      queryClient.invalidateQueries({ queryKey: ['products'] })
       const response = await createProduct(data)
       toast.success(response.message || "El producto se ha creado exitosamente.", {
         position: "top-right",
@@ -64,48 +65,6 @@ const ProductForm: React.FC = () => {
     }
   }
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const data = await getCategory()
-      setCategories(data)
-    }
-
-    fetchCategories()
-  }, [])
-
-  useEffect(() => {
-    if (selectedCategory) {
-      const fetchSubCategories = async () => {
-        const data = await getSubCategory(selectedCategory)
-        setSubCategories(data)
-      }
-
-      fetchSubCategories()
-    }
-  }, [selectedCategory])
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setProduct({
-      ...product,
-      [e.target.name]: e.target.value,
-    })
-  }
-
-  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedCategory(Number(e.target.value))
-  }
-
-  const handleSubcategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedSubcategory(Number(e.target.value))
-  }
-
-
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setImage(e.target.files[0])
-    }
-  }
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const newErrors: Record<string, string> = {}
@@ -124,14 +83,36 @@ const ProductForm: React.FC = () => {
     const formData = new FormData()
     formData.append('name', product.name)
     formData.append('price', product.price)
-    formData.append('stock', product.stock)
-    if (product.img) formData.append('img', product.img)
-    formData.append('category', selectedCategory!.toString())
-    formData.append('subCategory', selectedSubcategory!.toString())
-      if (image) formData.append('product[img]', image)
-
+    formData.append('stock', product.stock.toString())
+    if (image) formData.append('product[img]', image)
+    formData.append('categories[name]', selectedCategory!.toString())
+    formData.append('categories[subCategories][name]', selectedSubcategory!)
 
     await handleCreateProduct(formData)
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setProduct({
+      ...product,
+      [e.target.name]: e.target.value,
+    })
+  }
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedCategoryId = parseInt(e.target.value, 10)
+    setSelectedCategory(selectedCategoryId)
+    setSelectedSubcategory(null) 
+  }
+
+  const handleSubcategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedSubcategoryName = e.target.value
+    setSelectedSubcategory(selectedSubcategoryName)
+  }
+
+
+  function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
+    if (e.target.files && e.target.files.length > 0) {
+      setImage(e.target.files[0])
+    }
   }
 
   return (
@@ -149,13 +130,13 @@ const ProductForm: React.FC = () => {
               id="name"
               value={product.name}
               onChange={handleChange}
-              className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-zinc-800"
+              className="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
-            {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+            {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
           </div>
           <div>
             <label htmlFor="price" className="block text-sm font-medium text-zinc-700 mb-1">
-              Precio
+              Precio del Producto
             </label>
             <input
               type="text"
@@ -163,73 +144,73 @@ const ProductForm: React.FC = () => {
               id="price"
               value={product.price}
               onChange={handleChange}
-              className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-zinc-800"
+              className="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
-            {errors.price && <p className="text-red-500 text-sm">{errors.price}</p>}
+            {errors.price && <p className="text-red-500 text-xs mt-1">{errors.price}</p>}
           </div>
           <div>
             <label htmlFor="stock" className="block text-sm font-medium text-zinc-700 mb-1">
-              Stock
+              Stock del Producto
             </label>
             <input
-              type="text"
+              type="number"
               name="stock"
               id="stock"
               value={product.stock}
               onChange={handleChange}
-              className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-zinc-800"
+              className="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
-            {errors.stock && <p className="text-red-500 text-sm">{errors.stock}</p>}
+            {errors.stock && <p className="text-red-500 text-xs mt-1">{errors.stock}</p>}
           </div>
           <div>
             <label htmlFor="category" className="block text-sm font-medium text-zinc-700 mb-1">
-              Categoría
+              Categoría del Producto
             </label>
             <select
               name="category"
               id="category"
               value={selectedCategory || ''}
               onChange={handleCategoryChange}
-              className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-zinc-800"
+              className="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             >
-              <option value="">Selecciona una categoría</option>
-              {categories.map((category) => (
-                <option key={category.id} value={category.id}>
+              <option value="">Seleccione una categoría</option>
+              {categories?.map((category: Category) => (
+                <option key={category.id} value={category.name}>
                   {category.name}
                 </option>
               ))}
             </select>
-            {errors.category && <p className="text-red-500 text-sm">{errors.category}</p>}
+            {errors.category && <p className="text-red-500 text-xs mt-1">{errors.category}</p>}
           </div>
           <div>
-            <label htmlFor="subCategory" className="block text-sm font-medium text-zinc-700 mb-1">
-              Subcategoría
+            <label htmlFor="subcategory" className="block text-sm font-medium text-zinc-700 mb-1">
+              Subcategoría del Producto
             </label>
             <select
-              name="subCategory"
-              id="subCategory"
+              name="subcategory"
+              id="subcategory"
               value={selectedSubcategory || ''}
               onChange={handleSubcategoryChange}
-              className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-zinc-800"
+              className="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              disabled={!selectedCategory}
             >
-              <option value="">Selecciona una subcategoría</option>
-              {subCategories.map((subcategory) => (
-                <option key={subcategory.id} value={subcategory.id}>
-                  {subcategory.name}
+              <option value="">Seleccione una subcategoría</option>
+              {subCategories?.map((subCategory: SubCategory) => (
+                <option key={subCategory.id} value={subCategory.name}>
+                  {subCategory.name}
                 </option>
               ))}
             </select>
-            {errors.subcategory && <p className="text-red-500 text-sm">{errors.subcategory}</p>}
+            {errors.subcategory && <p className="text-red-500 text-xs mt-1">{errors.subcategory}</p>}
           </div>
           <div>
-            <label htmlFor="images" className="block text-sm font-medium text-zinc-700 mb-1">
-              Imágenes del Producto
+            <label htmlFor="img" className="block text-sm font-medium text-zinc-700 mb-1">
+              Imagen del Producto
             </label>
             <input
               type="file"
               name="img"
               id="img"
-              multiple
               onChange={handleImageChange}
               className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-zinc-800"
             />
