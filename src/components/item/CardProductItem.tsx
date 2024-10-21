@@ -22,8 +22,8 @@ export default function CardProductItem({
   originalPrice = 5999, 
   rating = 4.5,
   id="1",
-  subCategories="Deportes",
-  categories="Calzado"
+  // subCategories="Deportes",
+  // categories="Calzado"
 }: ProductCardProps) {
 
   const discount = originalPrice ? Math.round((1 - price / originalPrice) * 100) : 0
@@ -49,8 +49,8 @@ export default function CardProductItem({
       </div>
       <CardContent className="p-4">
         <h3 className="mb-2 text-sm sm:text-base lg:text-lg font-semibold line-clamp-2">{name}</h3>
-              <p className="mb-2 text-sm sm:text-base lg:text-lg font-semibold line-clamp-2">{subCategories}</p>
-                    <p className="mb-2 text-sm sm:text-base lg:text-lg font-semibold line-clamp-2">{categories}</p>
+              {/* <p className="mb-2 text-sm sm:text-base lg:text-lg font-semibold line-clamp-2">{subCategories}</p>
+                    <p className="mb-2 text-sm sm:text-base lg:text-lg font-semibold line-clamp-2">{categories}</p> */}
         <div className="flex items-center gap-2 mb-2">
           <div className="text-lg sm:text-xl lg:text-2xl font-bold">${price}</div>
           {originalPrice && (

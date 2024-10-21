@@ -43,11 +43,7 @@ export const getCategory = async (): Promise<any[]> => {
 
 export const getSubCategory = async (id: number): Promise<any[]> => {
   try {
-    const res = await clienteAxios.get<any[]>("/subCategories", {
-      params: {
-        categoryId: id
-      }
-    })
+    const res = await clienteAxios.get<any[]>(`/subCategories/${id}`)
     return res.data
   } catch (error: any) {
     console.error(error)

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useQuery } from "@tanstack/react-query"
 import { toast } from 'react-toastify'
 import { createProduct, getCategory, getSubCategory } from '@/api/prodcut'
+import { Input } from '../ui/input'
 
 interface Product {
   name: string
@@ -85,8 +86,16 @@ const ProductForm: React.FC = () => {
     formData.append('price', product.price)
     formData.append('stock', product.stock.toString())
     if (image) formData.append('product[img]', image)
-    formData.append('categories[name]', selectedCategory!.toString())
-    formData.append('categories[subCategories][name]', selectedSubcategory!)
+
+    const categoryName = categories?.find(cat => cat.id === selectedCategory)?.name
+  if (categoryName) {
+    formData.append('category', categoryName)
+  }
+
+  if (selectedSubcategory) {
+    formData.append('subCategory', selectedSubcategory)
+  }
+
 
     await handleCreateProduct(formData)
   }
@@ -97,8 +106,10 @@ const ProductForm: React.FC = () => {
       [e.target.name]: e.target.value,
     })
   }
+
+
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedCategoryId = parseInt(e.target.value, 10)
+    const selectedCategoryId = Number(e.target.value)
     setSelectedCategory(selectedCategoryId)
     setSelectedSubcategory(null) 
   }
@@ -108,7 +119,6 @@ const ProductForm: React.FC = () => {
     setSelectedSubcategory(selectedSubcategoryName)
   }
 
-
   function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.files && e.target.files.length > 0) {
       setImage(e.target.files[0])
@@ -117,14 +127,13 @@ const ProductForm: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-xl">
-      <h2 className="text-3xl font-bold mb-8 text-zinc-800">Agregar Nuevo Producto</h2>
       <form onSubmit={handleSubmit} className="space-y-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-zinc-700 mb-1">
               Nombre del Producto
             </label>
-            <input
+            <Input
               type="text"
               name="name"
               id="name"
@@ -138,7 +147,7 @@ const ProductForm: React.FC = () => {
             <label htmlFor="price" className="block text-sm font-medium text-zinc-700 mb-1">
               Precio del Producto
             </label>
-            <input
+            <Input
               type="text"
               name="price"
               id="price"
@@ -152,7 +161,7 @@ const ProductForm: React.FC = () => {
             <label htmlFor="stock" className="block text-sm font-medium text-zinc-700 mb-1">
               Stock del Producto
             </label>
-            <input
+            <Input
               type="number"
               name="stock"
               id="stock"
@@ -171,11 +180,11 @@ const ProductForm: React.FC = () => {
               id="category"
               value={selectedCategory || ''}
               onChange={handleCategoryChange}
-              className="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="mt-1 block py-1 w-full border border-zinc-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             >
               <option value="">Seleccione una categoría</option>
               {categories?.map((category: Category) => (
-                <option key={category.id} value={category.name}>
+                <option key={category.id} value={category.id}>
                   {category.name}
                 </option>
               ))}
@@ -191,7 +200,7 @@ const ProductForm: React.FC = () => {
               id="subcategory"
               value={selectedSubcategory || ''}
               onChange={handleSubcategoryChange}
-              className="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="mt-1 block w-full border py-1 border-zinc-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               disabled={!selectedCategory}
             >
               <option value="">Seleccione una subcategoría</option>
@@ -207,7 +216,7 @@ const ProductForm: React.FC = () => {
             <label htmlFor="img" className="block text-sm font-medium text-zinc-700 mb-1">
               Imagen del Producto
             </label>
-            <input
+            <Input
               type="file"
               name="img"
               id="img"
@@ -219,7 +228,7 @@ const ProductForm: React.FC = () => {
         <div className="flex justify-end">
           <button
             type="submit"
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-800"
+            className="px-4 py-2 bg-zinc-800 text-white rounded-md hover:bg-zinc-700 focus:outline-none focus:ring focus:ring-zinc-900"
           >
             Agregar Producto
           </button>

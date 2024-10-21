@@ -46,9 +46,15 @@ const Header = () => {
              </div>
               ) : userRol === 'USER' ? (
                 <div className="flex items-center gap-2">
-                  <img src={profile?.img || '/default-profile.png'} alt="img-profile" className="w-8 h-8 rounded-full" />
                   <p>Bienvenido {profile?.name || 'Usuario'}</p>
-                  <button>Logout</button>
+                    <button onClick={logout}>
+                          <LogOut
+                      size={24}
+                      color={"#000"}
+                      className='h-6 w-6 '
+                      aria-hidden="true"
+                      />
+                      </button>
                 </div>
               ) : null
             ) : (
@@ -56,7 +62,10 @@ const Header = () => {
                 <Link to='/login'>
                   <Button variant="outline">Iniciar sesión</Button>
                 </Link>
-                <Button>Registrarse</Button>
+                <Link to='/registro'>
+                   <Button variant="outline">Registrarse</Button>
+                </Link>
+             
               </div>
             )}
             </div>
