@@ -86,12 +86,7 @@ const ProductForm: React.FC = () => {
     formData.append('price', product.price)
     formData.append('stock', product.stock.toString())
     if (image) formData.append('product[img]', image)
-
-    const categoryName = categories?.find(cat => cat.id === selectedCategory)?.name
-  if (categoryName) {
-    formData.append('category', categoryName)
-  }
-
+    formData.append('category', selectedCategory!.toString())
   if (selectedSubcategory) {
     formData.append('subCategory', selectedSubcategory)
   }
@@ -205,7 +200,7 @@ const ProductForm: React.FC = () => {
             >
               <option value="">Seleccione una subcategoría</option>
               {subCategories?.map((subCategory: SubCategory) => (
-                <option key={subCategory.id} value={subCategory.name}>
+                <option key={subCategory.id} value={subCategory.id}>
                   {subCategory.name}
                 </option>
               ))}
