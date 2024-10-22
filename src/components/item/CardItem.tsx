@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Star, ShoppingCart, Check } from "lucide-react"
+import { Star, ShoppingCart } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
