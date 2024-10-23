@@ -30,7 +30,7 @@ const AppContent =() => {
 function App() {
   return (
     <>
-    <BrowserRouter basename="/">
+    <BrowserRouter basename="/ecommerce">
        <AppContent />
     <ToastContainer 
     position="top-right"
