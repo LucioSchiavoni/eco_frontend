@@ -21,8 +21,8 @@ export default function SheetAdmin() {
   const routes: Route[] = [
     { name: "Inicio", path: "/" },
     { name: "Registrar producto", path: "/create/product" },
-    { name: "Crear Categoria", path: "/contacto" },
-    { name: "Crear Sub-Categoria", path: "/contacto" },
+    { name: "Crear Categoria", path: "/category/create" },
+    { name: "Crear Sub-Categoria", path: "/category/create" },
     { name: "Pedidos", path: "/sobre-nosotros" },
     { name: "Stock", path: "/contacto" },
   ]

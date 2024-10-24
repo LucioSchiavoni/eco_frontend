@@ -7,6 +7,8 @@ import 'react-toastify/ReactToastify.css';
 import RegisterPage from "./pages/RegisterPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import RegisterProductPage from "./pages/admin/RegisterProductPage";
+import ProductSubCategoryPage from "./pages/product/ProductSubCategoryPage";
+import CreateCategoriesPage from "./pages/admin/createCategories/CreateCategoriesPage";
 
 
 const AppContent =() => {
@@ -21,6 +23,8 @@ const AppContent =() => {
           <Route path="/login" element={<LoginPage/>}/>
           <Route path="/registro" element={<RegisterPage/>}/>
           <Route path="/create/product" element={<RegisterProductPage/>}/>
+          <Route path="/category/:id" element={<ProductSubCategoryPage/>}/>
+          <Route path="/category/create" element={<CreateCategoriesPage/>}/>
   </Routes>
 
     </>

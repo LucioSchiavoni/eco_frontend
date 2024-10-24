@@ -75,21 +75,31 @@ export const NavbarDsk = () => {
                   </a>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/docs" className="hover:bg-gray-200" title="Mercurial">
+              <Link to='/category/2'>
+              <ListItem  className="hover:bg-gray-200" title="Mercurial">
+              </ListItem> 
+                 </Link>
 
-              </ListItem>
+                 <Link to='/category/4'>
               <ListItem href="/docs/installation" className="hover:bg-gray-200" title="Phantom">
-            
               </ListItem>
+              </Link>
+              
+              <Link to='/category/1'> 
               <ListItem href="/docs/primitives/typography" className="hover:bg-gray-200" title="Tiempo">
-                
               </ListItem>
-                    <ListItem href="/docs/primitives/typography" className="hover:bg-gray-200" title="Society Nike">
-                
+              </Link>
+
+              <Link to='/category/3'>
+               <ListItem href="/docs/primitives/typography" className="hover:bg-gray-200" title="Society Nike">  
               </ListItem>
-                 <ListItem href="/docs/primitives/typography" className="hover:bg-gray-200" title="Futsal Nike">
-                
+               </Link>
+
+                <Link to='/category/5'>
+               
+                 <ListItem href="/docs/primitives/typography" className="hover:bg-gray-200" title="Futsal Nike"> 
               </ListItem>
+               </Link>
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
@@ -113,18 +123,27 @@ export const NavbarDsk = () => {
                   </a>
                 </NavigationMenuLink>
               </li>
+
+              <Link to='/category/5'>
               <ListItem href="/card" className="hover:bg-gray-200" title="Adidas X">
-                
               </ListItem>
+                </Link>
+
+              <Link to='/category/7'>
                 <ListItem href="/card" className="hover:bg-gray-200" title="Predator">
-                
               </ListItem>
-                   <ListItem href="/card" className="hover:bg-gray-200" title="Copa">
-                
+              </Link>
+
+              <Link to='/category/6'>
+                   <ListItem href="/card" className="hover:bg-gray-200" title="Copa">  
               </ListItem>
+               </Link>
+
+
               <ListItem href="/docs/installation" className="hover:bg-gray-200" title="Futsal Adidas">
-          
               </ListItem>
+
+              
               <ListItem href="/docs/primitives/typography" className="hover:bg-gray-200" title="Society Adidas">
               </ListItem>
             </ul>

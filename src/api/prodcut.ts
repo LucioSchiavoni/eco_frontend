@@ -50,3 +50,14 @@ export const getSubCategory = async (id: number): Promise<any[]> => {
     throw new Error('Error fetching subcategories')
   }
 }
+
+
+export const getSubCategoryById = async (id: number): Promise<any> => {
+  try {
+    const res = await clienteAxios.get(`/product/category/${id}`)
+    return res.data
+  } catch (error: any) {
+    console.error(error)
+    throw new Error('Error fetching subcategory')
+  }
+}
