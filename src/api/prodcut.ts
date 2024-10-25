@@ -61,3 +61,25 @@ export const getSubCategoryById = async (id: number): Promise<any> => {
     throw new Error('Error fetching subcategory')
   }
 }
+
+
+export const createSubCategory = async (data: any) => {
+  try {
+    const res = await clienteAxios.post("/subCategories", data)
+    return res.data
+  } catch (error: any) {
+    console.error(error)
+    throw new Error(error.response?.data?.message || 'Error creating subcategory')
+  }
+}
+
+
+export const createCategory = async (data: any) => {
+  try {
+    const res = await clienteAxios.post("/newCategories", data)
+    return res.data
+  } catch (error: any) {
+    console.error(error)
+    throw new Error(error.response?.data?.message || 'Error creating category')
+  }
+}

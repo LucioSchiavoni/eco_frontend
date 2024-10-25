@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
+import { toast } from 'react-toastify'
 
 interface CheckoutItemProps {
     productData: {
@@ -102,7 +103,7 @@ interface CheckoutItemProps {
                     />
                   </div>
                 </div>
-                <Button type="submit" className="w-full">Procesar Pago</Button>
+                <Button type="submit" className="w-full" onClick={ () => toast.info("Pagos no habilitados por el momento")}>Procesar Pago</Button>
               </form>
             </CardContent>
           </Card>

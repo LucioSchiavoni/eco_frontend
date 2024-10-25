@@ -16,38 +16,38 @@ import { Link } from "react-router-dom"
 const components: { title: string; href: string; description: string }[] = [
   {
     title: "Bungesliga",
-    href: "/docs/primitives/alert-dialog",
+    href: "/",
     description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
+      "https://logowik.com/content/uploads/blog/bundesliga-football-clubs-and-logos3600.logowik.com.webp",
   },
   {
     title: "Premier league",
-    href: "/docs/primitives/hover-card",
+    href: "/",
     description:
-      "For sighted users to preview content available behind a link.",
+      "https://upload.wikimedia.org/wikipedia/fr/thumb/f/f2/Premier_League_Logo.svg/2560px-Premier_League_Logo.svg.png",
   },
   {
     title: "Serie A",
-    href: "/docs/primitives/progress",
+    href: "/",
     description:
-      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
+      "https://1000marcas.net/wp-content/uploads/2020/03/Italian-Serie-A-logo-1.jpg",
   },
   {
     title: "Liga española",
-    href: "/docs/primitives/scroll-area",
-    description: "Visually or semantically separates content.",
+    href: "/",
+    description: "https://www.soyfutbol.com/__export/1705872649665/sites/debate/img/2023/11/05/laliga_espaxola_tabla_de_posiciones_resultados.jpg_759710130.jpg",
   },
   {
     title: "Ligue 1",
-    href: "/docs/primitives/tabs",
+    href: "/",
     description:
-      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
+      "https://1000marcas.net/wp-content/uploads/2020/03/French-Ligue-1-Logo-2020-2024.png",
   },
   {
     title: "Uefa Champions League",
-    href: "/docs/primitives/tooltip",
+    href: "/",
     description:
-      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Logo_uefa_2012.png/640px-Logo_uefa_2012.png",
   },
 ]
 
@@ -169,13 +169,13 @@ export const NavbarDsk = () => {
                   </a>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/card" className="hover:bg-gray-200" title="Campo Puma">
+              <ListItem href="/" className="hover:bg-gray-200" title="Campo Puma">
                 
               </ListItem>
-                <ListItem href="/card" className="hover:bg-gray-200" title="Society Puma">
+                <ListItem href="/" className="hover:bg-gray-200" title="Society Puma">
                 
               </ListItem>
-                   <ListItem href="/card" className="hover:bg-gray-200" title="Futsal Puma">
+                   <ListItem href="/" className="hover:bg-gray-200" title="Futsal Puma">
                 
               </ListItem>
          
@@ -192,9 +192,9 @@ export const NavbarDsk = () => {
                   key={component.title}
                   title={component.title}
                   href={component.href}
-                  className="hover:bg-gray-200"
+                  className="hover:bg-gray-200 flex gap-4 items-center"
                 >
-                  {component.description}
+                <img src={component.description} alt={component.title} className="w-28 h-12 object-cover" />  
                 </ListItem>
               ))}
             </ul>

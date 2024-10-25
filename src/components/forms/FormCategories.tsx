@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { createCategory, createSubcategory, getCategories } from '@/api/categories'
+import { createCategory, createSubCategory, getCategory } from '@/api/prodcut'
 
 export default function FormCategories() {
   const [categoryName, setCategoryName] = useState('')
@@ -20,31 +20,31 @@ export default function FormCategories() {
 
   const { data: categories, isLoading, isError } = useQuery({
     queryKey: ['categories'],
-    queryFn: getCategories,
+    queryFn: getCategory,
   })
 
   const createCategoryMutation = useMutation({
     mutationFn: createCategory,
-    onSuccess: () => {
-      queryClient.invalidateQueries(['categories'])
-      setSuccess('Category created successfully')
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['categories'] })
+      setSuccess(data.message)
       setCategoryName('')
     },
-    onError: (error) => {
-      setError('Failed to create category')
+    onError: () => {
+      setError('Error al crear categoría')
     },
   })
 
   const createSubcategoryMutation = useMutation({
-    mutationFn: createSubcategory,
-    onSuccess: () => {
-      queryClient.invalidateQueries(['categories'])
-      setSuccess('Subcategory created successfully')
+    mutationFn: createSubCategory,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['categories'] })
+      setSuccess(data.message)
       setSubcategoryName('')
       setSelectedCategoryId('')
     },
-    onError: (error) => {
-      setError('Failed to create subcategory')
+    onError: () => {
+      setError('Error al crear subcategoría')
     },
   })
 
@@ -53,7 +53,7 @@ export default function FormCategories() {
     setError('')
     setSuccess('')
     if (!categoryName.trim()) {
-      setError('Category name is required')
+      setError('Nombre de la categoría es requerido')
       return
     }
     createCategoryMutation.mutate({ name: categoryName })
@@ -64,14 +64,18 @@ export default function FormCategories() {
     setError('')
     setSuccess('')
     if (!subcategoryName.trim()) {
-      setError('Subcategory name is required')
+      setError('Nombre de la subcategoría es requerido')
       return
     }
     if (!selectedCategoryId) {
-      setError('Please select a parent category')
+      setError('Selecciona una categoría')
       return
     }
     createSubcategoryMutation.mutate({ name: subcategoryName, categoryId: selectedCategoryId })
+  }
+
+  const handleSelectCategory = (value: string) => {
+    setSelectedCategoryId(value)
   }
 
   useEffect(() => {
@@ -82,71 +86,71 @@ export default function FormCategories() {
     return () => clearTimeout(timer)
   }, [error, success])
 
-  if (isLoading) return <div>Loading categories...</div>
-  if (isError) return <div>Error loading categories</div>
+  if (isLoading) return <div>Cargando...</div>
+  if (isError) return <div>Error al cargar categorías</div>
 
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
-        <CardTitle>Manage Categories</CardTitle>
+        <CardTitle>Categorías</CardTitle>
       </CardHeader>
       <CardContent>
         <Tabs defaultValue="category" className="w-full">
           <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="category">Create Category</TabsTrigger>
-            <TabsTrigger value="subcategory">Create Subcategory</TabsTrigger>
+            <TabsTrigger value="category">Crear Categoría</TabsTrigger>
+            <TabsTrigger value="subcategory">Crear Subcategoría</TabsTrigger>
           </TabsList>
           <TabsContent value="category">
             <form onSubmit={handleCreateCategory} className="space-y-4">
               <div>
-                <Label htmlFor="categoryName">Category Name</Label>
+                <Label htmlFor="categoryName">Nombre de la categoría</Label>
                 <Input
                   id="categoryName"
                   value={categoryName}
                   onChange={(e) => setCategoryName(e.target.value)}
-                  placeholder="Enter category name"
+                  placeholder="Ingresa el nombre de la categoría"
                 />
               </div>
-              <Button type="submit" className="w-full">Create Category</Button>
+              <Button type="submit" className="w-full">Crear categoría</Button>
             </form>
           </TabsContent>
           <TabsContent value="subcategory">
             <form onSubmit={handleCreateSubcategory} className="space-y-4">
               <div>
-                <Label htmlFor="parentCategory">Parent Category</Label>
-                <Select onValueChange={setSelectedCategoryId} value={selectedCategoryId}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a category" />
+                <Label htmlFor="parentCategory">Categoría</Label>
+                <Select onValueChange={handleSelectCategory} value={selectedCategoryId}>
+                  <SelectTrigger id="parentCategory">
+                    <SelectValue placeholder="Selecciona una categoría" />
                   </SelectTrigger>
                   <SelectContent>
                     {categories?.map((category: any) => (
-                      <SelectItem key={category.id} value={category.id}>
-                        {category.name}
-                      </SelectItem>
+                 <SelectItem key={category.id} value={category.id.toString()}>
+                 {category.name}
+               </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
               <div>
-                <Label htmlFor="subcategoryName">Subcategory Name</Label>
+                <Label htmlFor="subcategoryName">Nombre de la Subcategoría</Label>
                 <Input
                   id="subcategoryName"
                   value={subcategoryName}
                   onChange={(e) => setSubcategoryName(e.target.value)}
-                  placeholder="Enter subcategory name"
+                  placeholder="Ingresa el nombre de la subcategoría"
                 />
               </div>
-              <Button type="submit" className="w-full">Create Subcategory</Button>
+              <Button type="submit" className="w-full">Crear Subcategoría</Button>
             </form>
           </TabsContent>
         </Tabs>
         {error && (
-          <Alert variant="destructive" className="mt-4">
+          <Alert variant="destructive" className="mt-4 bg-red-300 bg-opacity-20 border border-red-800 text-red-800 font-bold">
             <AlertDescription>{error}</AlertDescription>
           </Alert>
         )}
         {success && (
-          <Alert variant="default" className="mt-4">
+          <Alert variant="default" className="mt-4 bg-blue-300 bg-opacity-20 border border-blue-600 text-blue-500 font-bold">
             <AlertDescription>{success}</AlertDescription>
           </Alert>
         )}

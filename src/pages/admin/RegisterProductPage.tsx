@@ -2,12 +2,16 @@ import { useNavigate } from "react-router-dom"
 import { ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import ProductForm from "@/components/forms/ProductForm"
+import Layout from "@/components/Layout"
+import Header from "@/components/navbar/Header"
 
 const RegisterProductPage = () => {
   const navigate = useNavigate()
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zinc-100 to-zinc-200 py-12 px-4 sm:px-6 lg:px-8">
+    <Layout>
+      <Header/>
+      <div className=" px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <div className="">
           <div className="p-6 sm:p-10">
@@ -28,6 +32,8 @@ const RegisterProductPage = () => {
         </div>
       </div>
     </div>
+    </Layout>
+    
   )
 }
 
