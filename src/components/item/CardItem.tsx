@@ -30,6 +30,12 @@ export default function CardItem() {
 
   const handleBuyNow = () => {
     setIsCheckoutVisible(true)
+    const productData = data || defaultData;
+    const productInfo = {
+      ...productData,
+      selectedSize: selectedSize || ''
+    }
+    localStorage.setItem('selectedProduct', JSON.stringify(productInfo))
   }
 
   const defaultData = {

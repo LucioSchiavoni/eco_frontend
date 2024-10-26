@@ -3,23 +3,24 @@ import { useAuthStore } from '@/context/store';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetTrigger, SheetContent } from '@/components/ui/sheet';
 import SheetAdmin from '@/components/button/SheetAdmin';
-import { Search, ShoppingCart, Menu, LogOut } from 'lucide-react';
+import { ShoppingCart, Menu, LogOut } from 'lucide-react';
+import SearchInput from '../search/SearchInput';
+import { getProduct } from '@/api/prodcut';
+import { useQuery } from '@tanstack/react-query';
 
 const NavbarMb = () => {
   const profile = useAuthStore((state) => state.profile);
   const logOut = useAuthStore((state) => state.logout);
 
+  const {data, isLoading} = useQuery({
+    queryKey: ['products'],
+    queryFn: () => getProduct()
+  });
+
   return (
     <nav className="flex items-center justify-between p-4 border-b">
       <div className="w-full md:w-4/12 flex items-center justify-between">
-        <div className="relative flex-grow mr-2">
-          <input 
-            type="search" 
-            placeholder="Buscar..." 
-            className="w-full border rounded-md pl-10 pr-3 py-2 focus:outline-none focus:ring focus:ring-zinc-800"
-          />
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-        </div>
+        <SearchInput items={data} isLoading={isLoading}/>
         <Button variant="outline" size="icon" className="md:hidden w-10 h-10">
           <ShoppingCart className="h-5 w-5" />
           <span className="sr-only">Carrito de compras</span>

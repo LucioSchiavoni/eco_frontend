@@ -1,14 +1,25 @@
-import { ShoppingCart, LogOut, Search } from "lucide-react"
+import { ShoppingCart, LogOut } from "lucide-react"
 import { Button } from "../ui/button"
 import { Navbar } from "./Navbar"
 import { Link } from "react-router-dom"
 import { useAuthStore } from "@/context/store"
 import SheetAdmin from "../button/SheetAdmin"
+import SearchInput from "../search/SearchInput"
+import { getProduct } from "@/api/prodcut"
+import { useQuery } from "@tanstack/react-query"
+
 
 const Header = () => {
     const profile = useAuthStore((state) => state.profile)
     const userRol = profile?.rolUser;
     const logout = useAuthStore((state) => state.logout)
+
+    const {data, isLoading} = useQuery({
+        queryKey: ['products'],
+        queryFn: () => getProduct()
+    })
+
+    const localProduct = JSON.parse(localStorage.getItem('selectedProduct') || '[]')
 
     return (
         <div>
@@ -18,16 +29,18 @@ const Header = () => {
                     <div className="hidden w-full md:w-4/12 md:flex items-center justify-between">
 
                     
-                    <div className="relative flex-grow mr-2">
-                            <input 
-                                type="search" 
-                                placeholder="Buscar..." 
-                                className="w-full border rounded-md pl-10 pr-3 py-2 focus:outline-none focus:ring focus:ring-zinc-800"
-                            />
-                            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-                        </div>
+                    <SearchInput items={data} isLoading={isLoading} />
 </div>
                     <div className="hidden md:flex items-center gap-4">
+                        <span>
+                            {localProduct.length > 0 && localProduct.map((item: any) => (
+                                <div>
+                                    <p>{item.name}</p>
+                                    <p>{item.price}</p>
+                                    <p>{item.selectedSize}</p>
+                                </div>    
+                            ))}
+                        </span>
                         <Button variant="outline" size="icon" className="w-12 h-12">
                             <ShoppingCart className="h-6 w-6" />
                             <span className="sr-only">Carrito de compras</span>
