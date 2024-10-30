@@ -19,7 +19,7 @@ const AppContent =() => {
   <Routes>
     <Route path="/" element={<Home/>} />
           <Route path="/product/:id" element={<ProductItemPage/>} />
-          <Route path="*" element={<NotFoundPage/>} />
+          {/* <Route path="*" element={<NotFoundPage/>} /> */}
           <Route path="/login" element={<LoginPage/>}/>
           <Route path="/registro" element={<RegisterPage/>}/>
           <Route path="/create/product" element={<RegisterProductPage/>}/>

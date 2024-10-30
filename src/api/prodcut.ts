@@ -1,4 +1,5 @@
 import clienteAxios from "@/config/axios";
+import axios from "axios";
 
 
 
@@ -83,3 +84,15 @@ export const createCategory = async (data: any) => {
     throw new Error(error.response?.data?.message || 'Error creating category')
   }
 }
+
+
+export const createPayment = async (data: any) => {
+  try {
+    const result = await axios.post("http://localhost:8000/process_payment", data)
+    return result.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+

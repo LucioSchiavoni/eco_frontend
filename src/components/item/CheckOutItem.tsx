@@ -4,9 +4,12 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { toast } from 'react-toastify'
+import { createPayment } from '@/api/prodcut'
+import { useAuthStore } from '@/context/store'
 
 interface CheckoutItemProps {
     productData: {
+      id: number;
       name: string;
       price: number;
       img: string;
@@ -15,8 +18,15 @@ interface CheckoutItemProps {
     onBack: () => void;
   } 
 
+
+
  const CheckOutItem: React.FC<CheckoutItemProps> = ({ productData, onBack }) => {
-    const { name, price, img, selectedSize } = productData
+    const { name, price, img, selectedSize, id} = productData
+
+    
+  const profile = useAuthStore((state) => state.profile)
+  const nameProfile = profile?.name;
+  const emailProfile = profile?.email;
 
 
   const [cardInfo, setCardInfo] = useState({
@@ -33,9 +43,37 @@ interface CheckoutItemProps {
     })
   }
 
+  const handlePayment = async() => {
+      
+    try {
+      const itemJson = {
+       "items": [
+         {
+          id: id,
+          name: name,
+          quantity: 1,
+          currency_id: 'UYU',
+          price: price
+         }
+       ],
+        "buyer": 
+          {
+            name: nameProfile ? nameProfile : "nombre",
+            email: emailProfile ? emailProfile : "nombre@gmail.com"
+          }
+         
+      } 
+      const result = await createPayment(itemJson)
+      toast.success('Compra realizada con éxito')
+       window.location.href = result.init_point
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-
+    
     console.log('Processing payment:', cardInfo)
   }
 
@@ -105,8 +143,10 @@ interface CheckoutItemProps {
                 </div>
                 <Button type="submit" className="w-full" onClick={ () => toast.info("Pagos no habilitados por el momento")}>Procesar Pago</Button>
               </form>
+             <Button type="submit" className="w-full mt-5" onClick={handlePayment}>MercadoPago</Button>
             </CardContent>
           </Card>
+
         </div>
          
         <div className="lg:w-1/3">
