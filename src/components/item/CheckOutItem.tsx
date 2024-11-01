@@ -58,14 +58,14 @@ interface CheckoutItemProps {
        ],
         "buyer": 
           {
-            name: nameProfile ? nameProfile : "nombre",
-            email: emailProfile ? emailProfile : "nombre@gmail.com"
+            name: nameProfile ? nameProfile : "sin usuario",
+            email: emailProfile ? emailProfile : "sinuser@gmail.com"
           }
          
       } 
       const result = await createPayment(itemJson)
-      toast.success('Compra realizada con éxito')
-       window.location.href = result.init_point
+      toast.info('Rediriendo a MercadoPago..')
+      window.location.href = result.init_point
     } catch (error) {
       console.log(error)
     }

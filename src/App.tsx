@@ -5,7 +5,7 @@ import LoginPage from "./pages/LoginPage"
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/ReactToastify.css';
 import RegisterPage from "./pages/RegisterPage";
-import NotFoundPage from "./pages/NotFoundPage";
+// import NotFoundPage from "./pages/NotFoundPage";
 import RegisterProductPage from "./pages/admin/RegisterProductPage";
 import ProductSubCategoryPage from "./pages/product/ProductSubCategoryPage";
 import CreateCategoriesPage from "./pages/admin/createCategories/CreateCategoriesPage";
