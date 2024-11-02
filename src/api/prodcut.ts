@@ -85,10 +85,10 @@ export const createCategory = async (data: any) => {
   }
 }
 
-
+const API_PYTHON = import.meta.env.VITE_API_PYTHON
 export const createPayment = async (data: any) => {
   try {
-    const result = await axios.post("http://localhost:8000/process_payment", data)
+    const result = await axios.post(`${API_PYTHON}/process_payment`, data)
     return result.data
   } catch (error) {
     console.log(error)
